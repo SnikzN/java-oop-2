@@ -7,9 +7,9 @@ import java.util.Date;
 
 public class Validator {
 
-    private static Date today = new Date();
+    private static final Date today = new Date();
 
-    private static SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+    private static final SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
 
     public static Car createAndValidateCar(String type, String licensePlate, String brand, String model, String fuelConsumption,
                                            String tankVolume, String fuelType, String power, String gearboxType, String manufactureYear, String registrationDate,

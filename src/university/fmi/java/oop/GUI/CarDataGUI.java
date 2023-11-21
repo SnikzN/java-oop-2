@@ -10,8 +10,6 @@ import java.awt.event.ItemEvent;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-// TODO: TRQBVA LI METODITE MI DA SA PUBLIC ?
-
 public class CarDataGUI {
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
     private int selectedIndex;
@@ -20,12 +18,7 @@ public class CarDataGUI {
     private final CarDataModel carDataModel = new CarDataModel();
     private final Garage garage = new Garage();
     private JFrame frame;
-    private JPanel titlePanel;
-    private JPanel menuPanel;
     private JPanel mainPanel;
-    private JPanel updateCarInfo;
-    private JPanel addPanelInputFields;
-    private JTable carTable;
     private JComboBox<String> dropdownMenu;
 
     private JTextField licensePlateInput;
@@ -46,17 +39,12 @@ public class CarDataGUI {
     private JButton addButton;
     private JButton updateButton;
 
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new CarDataGUI().createAndShowGUI());
-    }
-
     public void createAndShowGUI() {
         frame = new JFrame("Гаража на бай Иван");
         frame.setSize(1000, 800);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        titlePanel = new JPanel();
+        JPanel titlePanel = new JPanel();
         JLabel nameLabelTitlePanel = new JLabel("Гаража на бай Иван", JLabel.CENTER);
         Font labelFont = nameLabelTitlePanel.getFont();
         nameLabelTitlePanel.setFont(new Font(labelFont.getName(), Font.BOLD, 20));
@@ -64,7 +52,7 @@ public class CarDataGUI {
         titlePanel.setBorder(BorderFactory.createLineBorder(Color.black));
         titlePanel.add(nameLabelTitlePanel);
 
-        menuPanel = new JPanel();
+        JPanel menuPanel = new JPanel();
         menuPanel.setBackground(Color.white);
         menuPanel.setPreferredSize(new Dimension(200, 0));
 
@@ -124,7 +112,7 @@ public class CarDataGUI {
         buttonsPanel.add(buttonAddCar, gbc);
 
         buttonAddCar.addActionListener(e -> {
-            replaceMainPanel(openCarPanel(null));
+            replaceMainPanel(openCarPanel());
             selectedIndex = 0;
             dropdownMenu.setSelectedIndex(0);
             updateButton.setVisible(false);
@@ -136,7 +124,7 @@ public class CarDataGUI {
             if(selectedIndex > 0) {
                 garage.removeCar(selectedIndex - 1);
                 dropdownMenu.removeItemAt(selectedIndex);
-                replaceMainPanel(openCarPanel(null));
+                replaceMainPanel(openCarPanel());
             } else {
                 JOptionPane.showMessageDialog(null, "Няма избрана кола!", "Грешка", JOptionPane.WARNING_MESSAGE);
             }
@@ -151,7 +139,7 @@ public class CarDataGUI {
         buttonUpdateCarInfo.addActionListener(e -> {
             if(selectedIndex > 0) {
                 Car selectedCar = garage.getCarList().get(selectedIndex - 1);
-                replaceMainPanel(openCarPanel(selectedCar));
+                replaceMainPanel(openCarPanel());
                 updateFieldsForSelectedCar(selectedCar);
                 addButton.setVisible(false);
                 updateButton.setVisible(true);
@@ -182,7 +170,7 @@ public class CarDataGUI {
         frame.setVisible(true);
     }
 
-    public JPanel openCarPanel(Car selectedCar) {
+    public JPanel openCarPanel() {
 
         JPanel carPanel = new JPanel();
         carPanel.setBackground(Color.white);
@@ -197,7 +185,7 @@ public class CarDataGUI {
 
         addPanelHeader.add(addPanelLabel);
 
-        addPanelInputFields = new JPanel();
+        JPanel addPanelInputFields = new JPanel();
         addPanelInputFields.setBackground(Color.white);
 
         JLabel licensePlateLabel = new JLabel("Регистрационен номер:", JLabel.CENTER);
@@ -317,7 +305,7 @@ public class CarDataGUI {
             if (car != null) {
                 garage.addCar(car);
                 dropdownMenu.addItem(car.getBrand() + " " + car.getModel() + " (" + car.getLicensePlate() + ")");
-                replaceMainPanel(openCarPanel(null));
+                replaceMainPanel(openCarPanel());
             }
         });
 
@@ -367,7 +355,7 @@ public class CarDataGUI {
     private void displayCarsInATable(List<Car> listOfCars) {
         JPanel tablePanel = new JPanel(new BorderLayout());
 
-        carTable = new JTable(carDataModel);
+        JTable carTable = new JTable(carDataModel);
         JScrollPane scrollPane = new JScrollPane(carTable);
 
         tablePanel.add(scrollPane, BorderLayout.CENTER);
