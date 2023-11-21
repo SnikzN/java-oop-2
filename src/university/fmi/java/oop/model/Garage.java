@@ -5,13 +5,14 @@ import java.util.Date;
 import java.util.List;
 
 public class Garage {
-
-    // TODO: Vehicle and car object here ? to invoke them in CarDataGUI later trough garage.etc
     private String name;
     private List<Car> carList = new ArrayList<>();
 
     public void addCar(Car car) {
         carList.add(car);
+    }
+    public void updateCar(int selectedIndex, Car car) {
+        carList.set(selectedIndex, car);
     }
 
     public void removeCar(int index) {
@@ -22,7 +23,6 @@ public class Garage {
         carList.remove(car);
     }
 
-    // Use for searching a car
     public List<Car> searchByLicensePlate(String licensePlate) {
         List<Car> searchResults = new ArrayList<>();
 
@@ -84,12 +84,6 @@ public class Garage {
             }
         }
         return null;
-    }
-
-    public void printListOfCars() {
-        for (Car car : carList) {
-            System.out.println(car);
-        }
     }
 
 

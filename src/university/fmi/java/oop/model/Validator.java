@@ -89,23 +89,23 @@ public class Validator {
             return null;
         }
 
-        if (type.length() > 100) {
-            JOptionPane.showMessageDialog(null, "Невалидни данни, типът надвишава 100 символа", "Грешка", JOptionPane.WARNING_MESSAGE);
+        if (type.isEmpty() || type.length() > 100) {
+            JOptionPane.showMessageDialog(null, "Невалидни данни, типът е празен или надвишава 100 символа", "Грешка", JOptionPane.WARNING_MESSAGE);
             return null;
         }
 
-        if (licensePlate.length() > 10) {
-            JOptionPane.showMessageDialog(null, "Невалидни данни, регистрационният номер надвшава 10 символа", "Грешка", JOptionPane.WARNING_MESSAGE);
+        if (licensePlate.isEmpty() || licensePlate.length() > 10) {
+            JOptionPane.showMessageDialog(null, "Невалидни данни, регистрационният номер е празен или надвшава 10 символа", "Грешка", JOptionPane.WARNING_MESSAGE);
             return null;
         }
 
-        if (brand.length() > 20) {
-            JOptionPane.showMessageDialog(null, "Невалидни данни, марката надвишава 20 символа", "Грешка", JOptionPane.WARNING_MESSAGE);
+        if (brand.isEmpty() || brand.length() > 20) {
+            JOptionPane.showMessageDialog(null, "Невалидни данни, марката е празен или надвишава 20 символа", "Грешка", JOptionPane.WARNING_MESSAGE);
             return null;
         }
 
-        if (model.length() > 20) {
-            JOptionPane.showMessageDialog(null, "Невалидни данни, моделът надвишава 20 символа", "Грешка", JOptionPane.WARNING_MESSAGE);
+        if (model.isEmpty() || model.length() > 20) {
+            JOptionPane.showMessageDialog(null, "Невалидни данни, моделът е празен или надвишава 20 символа", "Грешка", JOptionPane.WARNING_MESSAGE);
             return null;
         }
 
@@ -129,17 +129,17 @@ public class Validator {
             return null;
         }
 
-        if (!isValidDate(registrationDateValue)) {
+        if (isValidDate(registrationDateValue)) {
             JOptionPane.showMessageDialog(null, "Невалидни дата на регистрация", "Грешка", JOptionPane.WARNING_MESSAGE);
             return null;
         }
 
-        if (!isValidDate(inspectionDateValue)) {
+        if (isValidDate(inspectionDateValue)) {
             JOptionPane.showMessageDialog(null, "Невалидни дата на преглед", "Грешка", JOptionPane.WARNING_MESSAGE);
             return null;
         }
 
-        if (!isValidDate(insuranceDateValue)) {
+        if (isValidDate(insuranceDateValue)) {
             JOptionPane.showMessageDialog(null, "Невалидни дата на застраховка", "Грешка", JOptionPane.WARNING_MESSAGE);
             return null;
         }
@@ -154,35 +154,13 @@ public class Validator {
             return null;
         }
 
-//        if (type.length() <= 100 &&
-//                licensePlate.length() <= 10 &&
-//                brand.length() <= 20 &&
-//                model.length() <= 20 &&
-//                fuelConsumptionValue > 0 &&
-//                tankVolumeValue > 0 &&
-//                powerValue >= 0 &&
-//                (manufactureYearValue > 0 && manufactureYearValue <= 2023) &&
-//                isValidDate(registrationDateValue) &&
-//                isValidDate(inspectionDateValue) &&
-//                isValidDate(insuranceDateValue) &&
-//                isValidFutureDate(nextDateForTireChangeValue) &&
-//                kmUntilOilChangeValue > 0
-//        )
-//        {
-//            return new Car(type, licensePlate, brand, model, fuelConsumptionValue,
-//                    tankVolumeValue, fuelType, powerValue, gearboxType, manufactureYearValue,
-//                    registrationDateValue, insuranceDateValue, inspectionDateValue, nextDateForTireChangeValue,
-//                    kmUntilOilChangeValue);
-//        } else {
-//            return null;
-//        }
 
         return new Car(type, licensePlate, brand, model, fuelConsumptionValue, tankVolumeValue, fuelType, powerValue, gearboxType, manufactureYearValue,
                 registrationDateValue, insuranceDateValue, inspectionDateValue, nextDateForTireChangeValue, kmUntilOilChangeValue);
     }
 
     public static boolean isValidDate(Date date) {
-        return date != null && date.before(today);
+        return date == null || !date.before(today);
     }
 
     public static boolean isValidFutureDate(Date date) {
